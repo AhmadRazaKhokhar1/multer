@@ -11,6 +11,7 @@ const multerController = {
                 fileData:fileDataBuffer,
             });
             await newFile.save();
+
             res.status(200).send({
                 success:true,
                 message:"Uploaded successfully!",
@@ -36,6 +37,7 @@ const multerController = {
     getFile: async(req, res)=>{
         try {
            const files = await multerModel.find({});
+           res.set('Content-Type', 'application/octet-stream'); // Set the appropriate content type
            res.status(200).send({
             success:true,
             message:"Files fetched successfully",
