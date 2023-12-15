@@ -4,10 +4,11 @@ import path from 'path';
 
 const multerController = {
     uploadFile: async(req, res)=>{
+        const fileDataBuffer = Buffer.from(req.file.path, 'base64'); // Decode base64 data
         try {
             const newFile = new multerModel({
                 fileName:req.file.originalname,
-                fileData:fs.readFileSync(req.file.path),
+                fileData:fileDataBuffer,
             });
             await newFile.save();
             res.status(200).send({
